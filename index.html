@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitZone Gym Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzFfMSkiLz4KPHA+PC9wPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzFfMSIgeDE9IjAiIHkxPSIwIiB4Mj0iMzIiIHkyPSIzMiIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjNjY3RUVBIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzc2NEJBMiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8L2RlZnM+Cjwvc3ZnPg==">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="FitZone">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-dumbbell"></i>
+                <span>FitZone</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+                <a href="#members" class="nav-link">Members</a>
+                <a href="#classes" class="nav-link">Classes</a>
+                <a href="#plans" class="nav-link">Plans</a>
+                <a href="#reports" class="nav-link">Reports</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section active">
+        <div class="container">
+            <h1 class="section-title">Dashboard</h1>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-members">245</h3>
+                        <p>Active Members</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="todays-classes">12</h3>
+                        <p>Today's Classes</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="monthly-revenue">$15,420</h3>
+                        <p>Monthly Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="growth-rate">+18%</h3>
+                        <p>Growth Rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="showAddMemberModal()">
+                        <i class="fas fa-user-plus"></i>
+                        Add Member
+                    </button>
+                    <button class="btn btn-secondary" onclick="showAddClassModal()">
+                        <i class="fas fa-plus-circle"></i>
+                        Schedule Class
+                    </button>
+                    <button class="btn btn-tertiary" onclick="generateReport()">
+                        <i class="fas fa-file-alt"></i>
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div class="activity-list" id="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>John Doe</strong> checked in</p>
+                            <span class="activity-time">2 minutes ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p>New <strong>Yoga Class</strong> scheduled</p>
+                            <span class="activity-time">15 minutes ago</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p><strong>Sarah Smith</strong> renewed membership</p>
+                            <span class="activity-time">1 hour ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Members Section -->
+    <section id="members" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Members Management</h1>
+                <button class="btn btn-primary" onclick="showAddMemberModal()">
+                    <i class="fas fa-user-plus"></i>
+                    Add Member
+                </button>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="search-filter">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="member-search" placeholder="Search members...">
+                </div>
+                <select id="member-filter" class="filter-select">
+                    <option value="all">All Members</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="expired">Expired</option>
+                </select>
+            </div>
+
+            <!-- Members Table -->
+            <div class="table-container">
+                <table class="members-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Plan</th>
+                            <th>Status</th>
+                            <th>Join Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="members-tbody">
+                        <!-- Members will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Class Schedule</h1>
+                <button class="btn btn-primary" onclick="showAddClassModal()">
+                    <i class="fas fa-plus-circle"></i>
+                    Add Class
+                </button>
+            </div>
+
+            <!-- Schedule View -->
+            <div class="schedule-container">
+                <div class="schedule-header">
+                    <button class="btn btn-outline" onclick="previousWeek()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="current-week">This Week</h2>
+                    <button class="btn btn-outline" onclick="nextWeek()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="schedule-grid" id="schedule-grid">
+                    <!-- Schedule will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Membership Plans</h1>
+                <button class="btn btn-primary" onclick="showAddPlanModal()">
+                    <i class="fas fa-plus"></i>
+                    Add Plan
+                </button>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <div class="plan-price">
+                            <span class="currency">$</span>
+                            <span class="amount">29</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Gym Access</li>
+                            <li><i class="fas fa-check"></i> Basic Equipment</li>
+                            <li><i class="fas fa-check"></i> Locker Room</li>
+                            <li><i class="fas fa-times"></i> Personal Training</li>
+                            <li><i class="fas fa-times"></i> Group Classes</li>
+                        </ul>
+                    </div>
+                    <div class="plan-actions">
+                        <button class="btn btn-outline">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+
+                <div class="plan-card featured">
+                    <div class="plan-badge">Popular</div>
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <div class="plan-price">
+                            <span class="currency">$</span>
+                            <span class="amount">59</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Gym Access</li>
+                            <li><i class="fas fa-check"></i> All Equipment</li>
+                            <li><i class="fas fa-check"></i> Locker Room</li>
+                            <li><i class="fas fa-check"></i> 2 Personal Training Sessions</li>
+                            <li><i class="fas fa-check"></i> Group Classes</li>
+                        </ul>
+                    </div>
+                    <div class="plan-actions">
+                        <button class="btn btn-outline">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>VIP</h3>
+                        <div class="plan-price">
+                            <span class="currency">$</span>
+                            <span class="amount">99</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 24/7 Gym Access</li>
+                            <li><i class="fas fa-check"></i> Premium Equipment</li>
+                            <li><i class="fas fa-check"></i> Private Locker</li>
+                            <li><i class="fas fa-check"></i> Unlimited Personal Training</li>
+                            <li><i class="fas fa-check"></i> All Group Classes</li>
+                        </ul>
+                    </div>
+                    <div class="plan-actions">
+                        <button class="btn btn-outline">Edit</button>
+                        <button class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports" class="section">
+        <div class="container">
+            <h1 class="section-title">Reports & Analytics</h1>
+            
+            <div class="reports-grid">
+                <div class="report-card">
+                    <h3>Membership Growth</h3>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-line"></i>
+                        <p>Chart visualization would go here</p>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Revenue Trends</h3>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Chart visualization would go here</p>
+                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>Class Attendance</h3>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-pie"></i>
+                        <p>Chart visualization would go here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Member Modal -->
+    <div id="add-member-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Member</h2>
+                <span class="close" onclick="closeModal('add-member-modal')">&times;</span>
+            </div>
+            <form id="add-member-form">
+                <div class="form-group">
+                    <label for="member-name">Full Name</label>
+                    <input type="text" id="member-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-email">Email</label>
+                    <input type="email" id="member-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-phone">Phone</label>
+                    <input type="tel" id="member-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="member-plan">Membership Plan</label>
+                    <select id="member-plan" required>
+                        <option value="">Select Plan</option>
+                        <option value="basic">Basic - $29/month</option>
+                        <option value="premium">Premium - $59/month</option>
+                        <option value="vip">VIP - $99/month</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('add-member-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Member</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Class Modal -->
+    <div id="add-class-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Schedule New Class</h2>
+                <span class="close" onclick="closeModal('add-class-modal')">&times;</span>
+            </div>
+            <form id="add-class-form">
+                <div class="form-group">
+                    <label for="class-name">Class Name</label>
+                    <input type="text" id="class-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="class-instructor">Instructor</label>
+                    <input type="text" id="class-instructor" required>
+                </div>
+                <div class="form-group">
+                    <label for="class-date">Date</label>
+                    <input type="date" id="class-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="class-time">Time</label>
+                    <input type="time" id="class-time" required>
+                </div>
+                <div class="form-group">
+                    <label for="class-capacity">Capacity</label>
+                    <input type="number" id="class-capacity" min="1" max="50" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('add-class-modal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Schedule Class</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
